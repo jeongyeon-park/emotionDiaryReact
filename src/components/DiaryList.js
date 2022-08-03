@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import MyButton from './MyButton';
 import DiaryItem from './DiaryItem';
 
 const sortOptionList = [
-    { value: "lastest", name: "최신순" },
+    { value: "latest", name: "최신순" },
     { value: "oldest", name: "오래된 순" },
 ];
 
@@ -17,7 +17,10 @@ const filterOptionList = [
 ];
 
 
-const ControlMenu = ({ value, onChange, optionList }) => {
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
+    useEffect(() => {
+        console.log("Control Menu")
+    });
     return (
         <select className='ControlMenu' value={value} onChange={(e) => onChange(e.target.value)}>
             {optionList.map((it, idx) => (
@@ -26,11 +29,11 @@ const ControlMenu = ({ value, onChange, optionList }) => {
                 </option>))}
         </select>
     );
-}
+})
 
 const DiaryList = ({ diaryList }) => {
     const navigate = useNavigate();
-    const [sortType, setSortType] = useState("lastest");
+    const [sortType, setSortType] = useState("latest");
     const [filter, setFilter] = useState("all");
 
     const getProcessedDiaryList = () => {
@@ -44,7 +47,7 @@ const DiaryList = ({ diaryList }) => {
         }
 
         const compare = (a, b) => {
-            if (sortType === "lastest") {
+            if (sortType === "latest") {
                 return parseInt(b.date) - parseInt(a.date);
             } else {
                 return parseInt(a.date) - parseInt(b.date);

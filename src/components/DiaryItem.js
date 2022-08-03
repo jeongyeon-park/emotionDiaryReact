@@ -4,7 +4,7 @@ import MyButton from "./MyButton";
 const DiaryItem = ({ id, emotion, content, date }) => {
 
     const navigate = useNavigate();
-    const strDate = new Date(parseInt(date)).toLocaleDateString();
+    const strDate = new Date(parseInt(date)).toISOString().slice(0, 10);
 
     const goDetail = () => {
         navigate(`/diary/${id}`)
